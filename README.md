@@ -194,8 +194,132 @@ Esto es la sintaxis JSX en elcomponente App.js
   </header>
 </div>
 ```
+
 JSX me permite trabajar `html` e insertar `javascript`.  
 En este caso a las clases las llamamos `className`.  
 En JSX si llamo a una variable la tengo que poner entre llaves `{logo}`.  
 El componente empieza con la primera letra en mayuscula.  
-51 min
+El componente tiene la estructura de una function.  
+Dentro del return tengo JSX.
+
+```javascript
+function App() {
+  return (
+    <div className="App">
+      <header className="App-header">
+        <img src={logo} className="App-logo" alt="logo" />
+        <p>
+          Edit <code>src/App.js</code> and save to reload.
+        </p>
+        <a
+          className="App-link"
+          href="https://reactjs.org"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          Learn React
+        </a>
+      </header>
+    </div>
+  );
+}
+```
+
+# Creo un componente Boton.jsx
+
+Necesito exportar el componente para renderizarlo.  
+Hay varias formas de exportar.
+
+```javascript
+function Boton() {
+  return <button>1</button>;
+}
+
+export default Boton;
+```
+
+Para poder utilizarlo tengo que importarlo en el archivo `index.js`  
+Si primero lo **exporto** y luego lo **importo**, VSC me ayuda con la importación.
+
+![](./img/boton.jpg)
+
+```jsx
+import React from "react";
+import ReactDOM from "react-dom/client";
+import "./index.css";
+import Boton from "./Boton";
+import reportWebVitals from "./reportWebVitals";
+
+const root = ReactDOM.createRoot(document.getElementById("root"));
+root.render(
+  <>
+    <Boton />
+  </>
+);
+```
+
+Vamos a la página y tenemos el botón.
+
+![](./img/boton1.jpg)
+
+# Etiqueta Fragment
+
+Es la etiqueta que me permite encerrar varios componentes sin necesidad de poner una etiqueta html que me influya a la hora de maquetar.
+
+```jsx
+const root = ReactDOM.createRoot(document.getElementById("root"));
+root.render(
+  <>
+    <Boton />
+    <Boton />
+    <Boton />
+    <Boton />
+    <Boton />
+    <Boton />
+  </>
+);
+```
+
+![](./img/boton2.jpg)
+
+# Personalizo los componentes
+
+Tengo que pasarle los parametros desde el componente.
+
+```jsx
+const root = ReactDOM.createRoot(document.getElementById("root"));
+root.render(
+  <>
+    <Boton numero={1} />
+    <Boton numero={2} />
+    <Boton numero={3} />
+    <Boton numero={4} />
+    <Boton numero={5} />
+  </>
+);
+```
+# props  
+Son las propiedades del componente que las estoy pasando.  
+En `Boton.js`  
+```jsx
+function Boton(props) {
+    return(
+        <button>{props.numero}</button>
+    )
+}
+
+export default Boton;
+```
+![](./img/boton3.jpg)
+# Opción  
+Puedo pasar directamente la propiedad **{numero}**.
+```jsx
+function Boton({numero}) {
+    return(
+        <button>{numero}</button>
+    )
+}
+
+export default Boton;
+```
+![](./img/boton4.jpg)
