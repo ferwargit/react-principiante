@@ -1,6 +1,14 @@
 
+// function Boton(props) {
+//     return(
+//         <button>{props.numero}</button>
+//     )
+// }
 
-function Boton({numero}) {
+// export default Boton;
+
+
+const Boton = ({numero='default'}) => {
     return(
         <button>{numero}</button>
     )

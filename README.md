@@ -168,31 +168,38 @@ root.render(
 
 Cuando se compile todo esto se convierte en html, css y javascript
 
-# Componente App.js
+# Componente App.js declarado como function
 
 Es un componente que estoy exportando.  
 Puedo crear un solo componente y luego multiplicar.  
 Y lo puedo personalizar.  
 Todos son componentes que luego se reutilizan.  
-Esto es la sintaxis JSX en elcomponente App.js
+Dentro de la etiqueta `<div>` esta la sintaxis JSX.
 
 ```jsx
-<div className="App">
-  <header className="App-header">
-    <img src={logo} className="App-logo" alt="logo" />
-    <p>
-      Edit <code>src/App.js</code> and save to reload.
-    </p>
-    <a
-      className="App-link"
-      href="https://reactjs.org"
-      target="_blank"
-      rel="noopener noreferrer"
-    >
-      Learn React
-    </a>
-  </header>
-</div>
+function App() {
+  return (
+    <div className="App">
+      <header className="App-header">
+        <img src={logo} className="App-logo" alt="logo" />
+        <p>
+          Edit <code>src/App.js</code> and save to reload.
+        </p>
+        <a
+          className="App-link"
+          href="https://reactjs.org"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          Learn React
+        </a>
+      </header>
+    </div>
+  );
+}
+
+export default App;
+
 ```
 
 JSX me permite trabajar `html` e insertar `javascript`.  
@@ -225,7 +232,7 @@ function App() {
 }
 ```
 
-# Creo un componente Boton.jsx
+# Creo un componente Boton.jsx declarado como function
 
 Necesito exportar el componente para renderizarlo.  
 Hay varias formas de exportar.
@@ -311,7 +318,7 @@ function Boton(props) {
 export default Boton;
 ```
 ![](./img/boton3.jpg)
-# Opción  
+# Opción desestructurada
 Puedo pasar directamente la propiedad **{numero}**.
 ```jsx
 function Boton({numero}) {
@@ -322,4 +329,164 @@ function Boton({numero}) {
 
 export default Boton;
 ```
-![](./img/boton4.jpg)
+![](./img/boton4.jpg)  
+# Limpiamos archivos con los que no vamos a trabajar  
+setupTest.js  
+
+![](./img/test.jpg)  
+reportWebVitals.js  
+
+![](./img/report.jpg)  
+logo.svg  
+
+![](./img/logo.jpg)  
+App.test.js  
+
+![](./img/App-test.jpg)  
+
+# Puedo definir el componente como funcion flecha  
+Trabaja de igual manera.  
+```jsx
+const Boton = ({numero}) => {
+    return(
+        <button>{numero}</button>
+    )
+}
+
+export default Boton;
+```
+ # Ver props  
+  * Que lleguen de un formulario.
+  * Que lleguen de una base de datos.
+  * Que lleguen de un json.
+  * Que lleguen de una API.  
+
+# Creamos componente Card.jsx
+```jsx
+function Card({nombre, fechaNacimiento, clubes, cromo}) {
+    return(
+        <div>
+            <h1>{nombre}</h1>
+            <p>{fechaNacimiento}</p>
+            <p>{clubes}</p>
+            <small>{cromo?'esta figurita es cromo':'no es un cromo'}</small>
+        </div>
+    )
+}
+
+export default Card;
+```
+`nombre` llega como **string**, si es string NO lleva {} queda con ''.  
+`fecha de nacimiento` es un **number** entre {}.  
+`clubes` es un **array**, entre {[]}  
+`cromo` lo voy a pasar y va hacer un `true` o `false`.  
+Si `cromo` es **true** entonces **esta figurita es cromo** si `cromo` es **false** entonces **no es un cromo**.  
+En el index.js
+```jsx
+const root = ReactDOM.createRoot(document.getElementById("root"));
+root.render(
+  <>
+    <Card nombre='Lionel Messi' fechaNacimiento={1987} clubes={['Barcelona','PSG']} cromo={true} />
+    <Card nombre='Emiliano Martinez' fechaNacimiento={1992} clubes={['Arsenal','Aston Villa']} cromo={false} />
+    <Boton numero={1} />
+    <Boton numero={2} />
+    <Boton numero={3} />
+    <Boton numero={4} />
+    <Boton numero={5} />
+  </>
+);
+```
+# Emoji para copiar y pegar
+https://emojikeyboard.top/es/
+```jsx
+function Card({nombre, fechaNacimiento, clubes, cromo}) {
+    return(
+        <div>
+            <h1>{nombre}</h1>
+            <p>{fechaNacimiento}</p>
+            <p>{clubes}</p>
+            <small>{cromo?'Esta figurita es cromo 🌟​':'No es un cromo 😬'}</small>
+        </div>
+    )
+}
+
+export default Card;
+```
+![](./img/messi.jpg)  
+```jsx
+function Card({nombre, fechaNacimiento, clubes, cromo, late}) {
+    return(
+        <div>
+            <h1>{nombre}</h1>
+            <p>{fechaNacimiento}</p>
+            <p>{clubes}</p>
+            <small>{cromo?'Esta figurita es cromo 🌟 ​':'No es un cromo 😬 '}</small>
+            <small>{late?'Late ✔️​':'Nola ✖️​'}</small>
+        </div>
+    )
+}
+```
+```jsx
+const root = ReactDOM.createRoot(document.getElementById("root"));
+root.render(
+  <>
+    <Card nombre='Lionel Messi' fechaNacimiento={1987} clubes={['Barcelona','PSG']} cromo={true} late={false}/>
+    <Card nombre='Emiliano Martinez' fechaNacimiento={1992} clubes={['Arsenal','Aston Villa']} cromo={false} late={true}/>
+    <Boton numero={1} />
+    <Boton numero={2} />
+    <Boton numero={3} />
+    <Boton numero={4} />
+    <Boton numero={5} />
+  </>
+);
+```
+![](./img/messi2.jpg)  
+
+# Hay forma de pasar un parámetro por defecto  
+¿Que pasa si algun props falla y no hay ninguno por defecto?
+```jsx
+const Boton = ({numero='default'}) => {
+    return(
+        <button>{numero}</button>
+    )
+}
+
+export default Boton;
+```
+```jsx
+const root = ReactDOM.createRoot(document.getElementById("root"));
+root.render(
+  <>
+    <Card nombre='Lionel Messi' fechaNacimiento={1987} clubes={['Barcelona','PSG']} cromo={true} late={false}/>
+    <Card nombre='Emiliano Martinez' fechaNacimiento={1992} clubes={['Arsenal','Aston Villa']} cromo={false} late={true}/>
+    <Boton numero={1} />
+    <Boton numero={2} />
+    <Boton numero={3} />
+    <Boton numero={4} />
+    <Boton />
+  </>
+);
+```
+![](./img/defaault.jpg)  
+# Estilos online en el componente  
+Clave: Valor  
+JSX omite (background-color) los guiones.
+**backgroundColor: 'blue'**
+```jsx
+function Card({nombre, fechaNacimiento, clubes, cromo, late}) {
+    return(
+        <div>
+            <h1 style={{backgroundColor: 'blue'}}>
+                {nombre}
+            </h1>
+            <p>{fechaNacimiento}</p>
+            <p>{clubes}</p>
+            <small>{cromo?'Esta figurita es cromo 🌟 ​':'No es un cromo 😬 '}</small>
+            <small>{late?'Late ✔️​':'Nola ✖️​'}</small>
+        </div>
+    )
+}
+
+export default Card;
+```
+![](./img/estilo.jpg)
